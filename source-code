@@ -1,0 +1,60 @@
+import javax.swing.JOptionPane;
+
+public class Rot13 {
+	
+	
+	public static void main(String[] args) {
+		
+		//Declare and initialize the user input
+		String input = " ";
+		//Do while loop that terminates the program once the letter 'Q' has been entered
+		//JOptionPane is used to ask the user to input a phrase and output the result message
+		//Output message includes the breakLines method applied to the rot13 algorithm result
+		do{
+			input = JOptionPane.showInputDialog("Input a phrase: ('Q' or 'q' to quit)");
+			if(input.equalsIgnoreCase("Q")){
+				JOptionPane.showMessageDialog(null, "Goodbye!");
+			}
+			else{
+				JOptionPane.showMessageDialog(null, breakLines(maxLength, rot13(input)));
+			}
+		}while(!(input.equalsIgnoreCase("Q")));
+	}
+	
+	//Rot13 method that will perform the encryption on the input characters
+	public static String rot13(String input){
+		//Declare and initialize the result
+		String result = "";
+		//For loop that will go through the input characters and convert them by 13 letters on the ASCII code
+		for (int i=0;i<input.length();i++){
+			char a=input.charAt(i);
+			//If statement that will add the letter by 13 on the ASCII table by both cases
+			if((a >= 'a' && a <= 'm') || (a >= 'A' && a <= 'M')){
+				a = (char) (a + 13);
+			//Else if statement that will subtract the letter by 13 on the ASCII table by both cases
+			}else if((a >= 'n' && a <= 'z') || (a >= 'N' && a <= 'Z')){
+				a = (char) (a - 13);
+			}
+			result += a;
+		}
+		//Return the final result of the converted text
+		return result;
+	}
+
+	//Declaring the maxLength variable as an integer and initializing it with the value of 50
+	public static int maxLength=50;
+	//BreakLines method with the maxLength and input text as the two parameters
+	public static String breakLines (int maxLength, String text){
+		//Declare and initialize the output String
+		String output = "";
+		//For loop that breaks the input text after every 50 characters
+		for (int i=0; i<text.length(); i++){
+			if (i%maxLength==0){
+				output=output+'\n';
+			}
+			output=output+text.charAt(i);
+		}
+		//Return the lines of text that are broken by 50
+		return output;
+	}
+}
